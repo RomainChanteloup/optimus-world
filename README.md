@@ -47,4 +47,8 @@ export default tseslint.config({
     ...react.configs['jsx-runtime'].rules,
   },
 })
+
+
+credit to git repo
+https://github.com/isaac-mason/sketches
 ```

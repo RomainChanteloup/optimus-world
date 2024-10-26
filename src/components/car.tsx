@@ -1,4 +1,5 @@
-import { Box, Cylinder } from "@react-three/drei";
+
+import { Box, Cylinder, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
   RapierRigidBody,
@@ -7,6 +8,7 @@ import {
   Vector3Array
 } from "@react-three/rapier";
 import { createRef, RefObject, useRef } from "react";
+import { ControlsMapping } from "../App";
 
 const WheelJoint = ({
   body,
@@ -26,10 +28,23 @@ const WheelJoint = ({
     wheelAnchor,
     rotationAxis
   ]);
+  const [, get] = useKeyboardControls()
+
 
   useFrame(() => {
+    const { forward, back, left, right, stop } = get()
+
     if (joint.current) {
-      joint.current.configureMotorVelocity(20, 10);
+      if(forward){
+        console.log(forward)
+        joint.current.configureMotorVelocity(20, 10);
+      }
+      if(back){
+        joint.current.configureMotorVelocity(-20, 10);
+      }
+      if(stop){
+        joint.current.configureMotorVelocity(0, 0);
+      }
     }
   });
 
@@ -39,20 +54,19 @@ const WheelJoint = ({
 export function Car(): any {
   const bodyRef = useRef<RapierRigidBody>(null);
   const wheelPositions: [number, number, number][] = [
-    [-3, 0, 2],
-    [-3, 0, -2],
-    [3, 0, 2],
-    [3, 0, -2]
+    [-3, 0, 2], // Front left
+    [-3, 0, -2], // Front right
+    [3, 0, 2], // Rear left
+    [3, 0, -2] // Rear right
   ];
   const wheelRefs = useRef(
     wheelPositions.map(() => createRef<RapierRigidBody>())
   );
 
-
   return (
     <group>
       <RigidBody colliders="cuboid" ref={bodyRef} type="dynamic">
-        <Box scale={[6, 1, 1.9]} castShadow receiveShadow name="chassis">
+        <Box scale={[6, 1, 2]} castShadow receiveShadow name="chassis">
           <meshStandardMaterial color={"red"} />
         </Box>
       </RigidBody>
