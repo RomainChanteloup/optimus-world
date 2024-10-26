@@ -2,7 +2,7 @@ import { Environment, OrbitControls, Stars } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CuboidCollider, CylinderCollider, Physics, RigidBody, useBeforePhysicsStep } from '@react-three/rapier'
 import { useControls as useLeva } from 'leva'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Quaternion, Vector3 } from 'three'
 import { Canvas, Instructions, useLoadingAssets, usePageVisible } from './common'
@@ -10,7 +10,8 @@ import { LampPost } from './components/lamp-post'
 import { Vehicle, VehicleRef } from './components/vehicle'
 import { AFTER_RAPIER_UPDATE, LEVA_KEY, RAPIER_UPDATE_PRIORITY } from './constants/speed-text-tunnel'
 import { useControls } from './hooks/use-controls'
-import App from './App'
+import { SpeedTextTunnel } from './constants/speed-text-tunnel'
+
 
 const Text = styled.div`
     text-align: center;
@@ -31,7 +32,9 @@ const cameraIdealLookAt = new Vector3()
 const chassisTranslation = new Vector3()
 const chassisRotation = new Quaternion()
 
-const Game = () => {
+
+const Game = 
+() => { 
     const raycastVehicle = useRef<VehicleRef>(null)
     const currentSpeedTextDiv = useRef<HTMLDivElement>(null)
 
@@ -113,7 +116,7 @@ const Game = () => {
         // update speed text
         if (currentSpeedTextDiv.current) {
             const km = Math.abs(vehicle.state.currentVehicleSpeedKmHour).toFixed()
-            currentSpeedTextDiv.current.innerText = `${km} km/h`
+             currentSpeedTextDiv.current.innerText = `${km} km/h`
         }
 
         // update brake lights
@@ -152,6 +155,9 @@ const Game = () => {
 
     return (
         <>
+           <SpeedTextTunnel.In>
+              <SpeedText ref={currentSpeedTextDiv} />
+            </SpeedTextTunnel.In>
             {/* raycast vehicle */}
             <Vehicle ref={raycastVehicle} position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} />
 
@@ -247,12 +253,13 @@ export function Sketch() {
                     paused={!visible || loading}
                     debug={debug}
                 >
-                    <Game />
+                    <Game 
+                    // speed={speed} setSpeed={setSpeed}
+                    />
                 </Physics>
             </Canvas>
-
+            <SpeedTextTunnel.Out />
             <Instructions>use wasd to drive, space to break</Instructions>
-            {/* <App /> */}
         </>
     )
 }

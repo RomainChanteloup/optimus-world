@@ -14,7 +14,7 @@ export enum ControlsMapping {
 }
 
 
-function App() {
+function Test() {
 
   const map = useMemo<KeyboardControlsEntry<ControlsMapping>[]>(()=>[
     { name: ControlsMapping.forward, keys: ['ArrowUp'] },
@@ -44,4 +44,4 @@ function App() {
   )
 }
 
-export default App;
+export default Test;
