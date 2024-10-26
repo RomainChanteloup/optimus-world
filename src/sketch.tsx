@@ -11,6 +11,7 @@ import { Vehicle, VehicleRef } from './components/vehicle'
 import { AFTER_RAPIER_UPDATE, LEVA_KEY, RAPIER_UPDATE_PRIORITY } from './constants/speed-text-tunnel'
 import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
+import { Cybertruck } from './components/cybertruck'
 
 
 const Text = styled.div`
@@ -161,6 +162,8 @@ const Game =
             {/* raycast vehicle */}
             <Vehicle ref={raycastVehicle} position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} />
 
+            <Cybertruck position={[10, 0, 10]} />
+
             {/* lamp posts */}
             <LampPost position={[10, 0, 0]} />
             <LampPost position={[-10, 0, 25]} rotation-y={Math.PI} />
@@ -254,7 +257,6 @@ export function Sketch() {
                     debug={debug}
                 >
                     <Game 
-                    // speed={speed} setSpeed={setSpeed}
                     />
                 </Physics>
             </Canvas>
