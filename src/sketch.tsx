@@ -235,7 +235,7 @@ export function Sketch() {
 
     return (
         <>
-            {/* <Canvas camera={{ fov: 60, position: [0, 30, -20] }} shadows>
+            <Canvas camera={{ fov: 60, position: [0, 30, -20] }} shadows>
                 <color attach="background" args={['#111']} />
 
                 <Physics
@@ -251,8 +251,8 @@ export function Sketch() {
                 </Physics>
             </Canvas>
 
-            <Instructions>use wasd to drive, space to break</Instructions> */}
-            <App />
+            <Instructions>use wasd to drive, space to break</Instructions>
+            {/* <App /> */}
         </>
     )
 }
