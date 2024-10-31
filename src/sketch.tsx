@@ -13,6 +13,7 @@ import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
 import { Cybertruck } from './components/cybertruck'
 import { Perf } from 'r3f-perf'
+import { SceneWithScreen } from './components/utils/CurvedPlane'
 
 
 const Text = styled.div`
@@ -209,6 +210,8 @@ const Game =
                     </mesh>
                 </RigidBody>
             ))}
+
+            <SceneWithScreen />
 
             {/* ground */}
             <RigidBody type="fixed" position-z={75} position-y={-5} colliders={false} friction={1}>
