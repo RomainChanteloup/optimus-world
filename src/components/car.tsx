@@ -1,4 +1,6 @@
-
+/**
+ * OLD TEST COMPONENT
+ */
 import { Box, Cylinder, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
@@ -8,7 +10,7 @@ import {
   Vector3Array
 } from "@react-three/rapier";
 import { createRef, RefObject, useRef } from "react";
-import { ControlsMapping } from "../App";
+// import { ControlsMapping } from "../App";
 
 const WheelJoint = ({
   body,

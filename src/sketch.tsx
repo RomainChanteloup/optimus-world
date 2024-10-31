@@ -12,6 +12,7 @@ import { AFTER_RAPIER_UPDATE, LEVA_KEY, RAPIER_UPDATE_PRIORITY } from './constan
 import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
 import { Cybertruck } from './components/cybertruck'
+import { Perf } from 'r3f-perf'
 
 
 const Text = styled.div`
@@ -160,9 +161,9 @@ const Game =
               <SpeedText ref={currentSpeedTextDiv} />
             </SpeedTextTunnel.In>
             {/* raycast vehicle */}
-            <Vehicle ref={raycastVehicle} position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} />
+            {/* <Vehicle  position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} /> */}
 
-            <Cybertruck position={[10, 0, 10]} />
+            <Cybertruck ref={raycastVehicle} position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} />
 
             {/* lamp posts */}
             <LampPost position={[10, 0, 0]} />
@@ -243,8 +244,9 @@ export function Sketch() {
     })
 
     return (
-        <>
+        <> 
             <Canvas camera={{ fov: 60, position: [0, 30, -20] }} shadows>
+                {debug && <Perf position='top-left'/>}
                 <color attach="background" args={['#111']} />
 
                 <Physics

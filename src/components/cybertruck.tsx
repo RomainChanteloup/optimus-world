@@ -8,11 +8,25 @@ import * as THREE from 'three'
 import { useGLTF, } from '@react-three/drei'
 import cybertruckGLTF from '../assets/cybertruck.gltf?url'
 import { GLTF } from 'three-stdlib'
-import { RefObject, forwardRef } from 'react'
-import { RapierRigidBody, RigidBody, RigidBodyProps } from '@react-three/rapier'
+import { useControls as useLeva } from 'leva'
+import { MeshStandardMaterial, Group, Mesh, Vector3 } from 'three'
+import { RefObject, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { CuboidCollider, RapierRigidBody, RigidBody, RigidBodyProps, useRapier } from '@react-three/rapier'
 import { RapierRaycastVehicle, WheelOptions } from '../lib/rapier-raycast-vehicle'
 import { Object3D } from 'three'
+import { LEVA_KEY } from '../constants/speed-text-tunnel'
+import wheelGlbUrl from '../assets/wheel-draco.glb?url'
 
+type WheelGLTF = GLTF & {
+    nodes: {
+        Mesh_14: Mesh
+        Mesh_14_1: Mesh
+    }
+    materials: {
+        'Material.002': MeshStandardMaterial
+        'Material.009': MeshStandardMaterial
+    }
+}
 
 interface CybertruckGLTF extends GLTF {
     nodes: {
@@ -36,6 +50,30 @@ interface CybertruckGLTF extends GLTF {
     }
 }
 
+
+type WheelProps = JSX.IntrinsicElements['group'] & {
+    side: 'left' | 'right'
+    radius: number
+}
+
+const Wheel = ({ side, radius, ...props }: WheelProps) => {
+    const groupRef = useRef<Group>(null!)
+
+    const { nodes, materials } = useGLTF(wheelGlbUrl) as WheelGLTF
+    const scale = radius / 0.34
+
+    return (
+        <group dispose={null} {...props} ref={groupRef}>
+            <group scale={scale}>
+                <group scale={side === 'left' ? -1 : 1}>
+                    <mesh castShadow geometry={nodes.Mesh_14.geometry} material={materials['Material.002']} />
+                    <mesh castShadow geometry={nodes.Mesh_14_1.geometry} material={materials['Material.009']} />
+                </group>
+            </group>
+        </group>
+    )
+}
+
 export type VehicleProps = RigidBodyProps
 
 type RaycastVehicleWheel = {
@@ -51,16 +89,160 @@ export type VehicleRef = {
 }
 
 export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...groupProps }, ref) => {
+    const rapier = useRapier()
+
     const { nodes, materials } = useGLTF(cybertruckGLTF) as CybertruckGLTF
+
+    const vehicleRef = useRef<RapierRaycastVehicle>(null!)
+    const chassisRigidBodyRef = useRef<RapierRigidBody>(null!)
+    const brakeLightsRef = useRef<Mesh>(null!)
+
+    const topLeftWheelObject = useRef<Group>(null!)
+    const topRightWheelObject = useRef<Group>(null!)
+    const bottomLeftWheelObject = useRef<Group>(null!)
+    const bottomRightWheelObject = useRef<Group>(null!)
+    const debugPerf = useRef<Boolean>(false)
+
+    const {
+        indexRightAxis,
+        indexForwardAxis,
+        indexUpAxis,
+        directionLocal: directionLocalArray,
+        axleLocal: axleLocalArray,
+        vehicleWidth,
+        vehicleHeight,
+        vehicleFront,
+        vehicleBack,
+        ...levaWheelOptions
+    } = useLeva(`${LEVA_KEY}-wheel-options`, {
+        radius: 0.38,
+
+        indexRightAxis: 2,
+        indexForwardAxis: 0,
+        indexUpAxis: 1,
+
+        directionLocal: [0, -1, 0],
+        axleLocal: [0, 0, 1],
+
+        suspensionStiffness: 30,
+        suspensionRestLength: 0.3,
+        maxSuspensionForce: 100000,
+        maxSuspensionTravel: 0.3,
+
+        sideFrictionStiffness: 1,
+        frictionSlip: 1.4,
+        dampingRelaxation: 2.3,
+        dampingCompression: 4.4,
+
+        rollInfluence: 0.01,
+
+        customSlidingRotationalSpeed: -30,
+        useCustomSlidingRotationalSpeed: true,
+
+        forwardAcceleration: 1,
+        sideAcceleration: 1,
+
+        vehicleWidth: 1.7,
+        vehicleHeight: -0.2,
+        vehicleFront: -1.9,
+        vehicleBack: 1.8,
+    })
+
+    const directionLocal = useMemo(() => new Vector3(...directionLocalArray), [directionLocalArray])
+    const axleLocal = useMemo(() => new Vector3(...axleLocalArray), [axleLocalArray])
+
+    const commonWheelOptions = {
+        ...levaWheelOptions,
+        directionLocal,
+        axleLocal,
+    }
+
+    const wheels: RaycastVehicleWheel[] = [
+        {
+            object: topLeftWheelObject,
+            options: {
+                ...commonWheelOptions,
+                chassisConnectionPointLocal: new Vector3(vehicleBack, vehicleHeight, vehicleWidth * 0.5),
+            },
+        },
+        {
+            object: topRightWheelObject,
+            options: {
+                ...commonWheelOptions,
+                chassisConnectionPointLocal: new Vector3(vehicleBack, vehicleHeight, vehicleWidth * -0.5),
+            },
+        },
+        {
+            object: bottomLeftWheelObject,
+            options: {
+                ...commonWheelOptions,
+                chassisConnectionPointLocal: new Vector3(vehicleFront, vehicleHeight, vehicleWidth * 0.5),
+            },
+        },
+        {
+            object: bottomRightWheelObject,
+            options: {
+                ...commonWheelOptions,
+                chassisConnectionPointLocal: new Vector3(vehicleFront, vehicleHeight, vehicleWidth * -0.5),
+            },
+        },
+    ]
+
+
+    useImperativeHandle(ref, () => ({
+        chassisRigidBody: chassisRigidBodyRef,
+        rapierRaycastVehicle: vehicleRef,
+        setBraking: (braking: boolean) => {
+        },
+        wheels,
+    }))
+
+    useEffect(() => {
+        vehicleRef.current = new RapierRaycastVehicle({
+            world: rapier.world,
+            chassisRigidBody: chassisRigidBodyRef.current,
+            indexRightAxis,
+            indexForwardAxis,
+            indexUpAxis,
+        })
+
+        for (let i = 0; i < wheels.length; i++) {
+            const options = wheels[i].options
+            vehicleRef.current.addWheel(options)
+        }
+
+        vehicleRef.current = vehicleRef.current
+    }, [
+        chassisRigidBodyRef,
+        vehicleRef,
+        indexRightAxis,
+        indexForwardAxis,
+        indexUpAxis,
+        directionLocal,
+        axleLocal,
+        levaWheelOptions,
+    ])
+
+    const [leftHeadlightTarget] = useState(() => {
+        const object = new Object3D()
+        object.position.set(10, -0.5, -0.7)
+        return object
+    })
+
+    const [rightHeadlightTarget] = useState(() => {
+        const object = new Object3D()
+        object.position.set(10, -0.5, 0.7)
+        return object
+    })
 
     return (
 
         <>
-            <RigidBody {...groupProps} 
-            // ref={chassisRigidBodyRef} 
-            mass={150}>
-                <group dispose={null}>
-                    <mesh castShadow receiveShadow geometry={nodes.tires.geometry} material={materials['rubber.002']} />
+            <RigidBody {...groupProps}  colliders="trimesh" mass={150} ref={chassisRigidBodyRef}>
+            {/* <CuboidCollider position={[-0.23, 0, 0]} args={[2.8, 0.7, 1]} /> */}
+            
+                <group position={[-0.2, -0.9, 0]} rotation-y={Math.PI / 2} dispose={null}>
+                    {/* <mesh castShadow receiveShadow geometry={nodes.tires.geometry} material={materials['rubber.002']} /> */}
                     <mesh castShadow receiveShadow geometry={nodes.steer.geometry} material={nodes.steer.material} />
                     <mesh castShadow receiveShadow geometry={nodes.interior003.geometry} material={nodes.interior003.material} />
                     <mesh castShadow receiveShadow geometry={nodes.interior003_1.geometry} material={materials['light_f.002']} />
@@ -71,6 +253,19 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
                     {children}
                 </group>
             </RigidBody>
+
+            <group ref={topLeftWheelObject}>
+                <Wheel rotation={[0, Math.PI / 2, 0]} side="left" radius={commonWheelOptions.radius} />
+            </group>
+            <group ref={topRightWheelObject}>
+                <Wheel rotation={[0, Math.PI / 2, 0]} side="right" radius={commonWheelOptions.radius} />
+            </group>
+            <group ref={bottomLeftWheelObject}>
+                <Wheel rotation={[0, Math.PI / 2, 0]} side="left" radius={commonWheelOptions.radius} />
+            </group>
+            <group ref={bottomRightWheelObject}>
+                <Wheel rotation={[0, Math.PI / 2, 0]} side="right" radius={commonWheelOptions.radius} />
+            </group>
         </>
     )
 })
