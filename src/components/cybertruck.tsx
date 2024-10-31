@@ -5,12 +5,12 @@ https://market.pmnd.rs/model/cybertruck
 */
         
 import * as THREE from 'three'
-import { useGLTF, } from '@react-three/drei'
+import { Helper, useGLTF, } from '@react-three/drei'
 import cybertruckGLTF from '../assets/cybertruck.gltf?url'
 import { GLTF } from 'three-stdlib'
 import { useControls as useLeva } from 'leva'
-import { MeshStandardMaterial, Group, Mesh, Vector3 } from 'three'
-import { RefObject, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { MeshStandardMaterial, Group, Mesh, Vector3, Vector3Tuple, SpotLightHelper } from 'three'
+import { Fragment, RefObject, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { CuboidCollider, RapierRigidBody, RigidBody, RigidBodyProps, useRapier } from '@react-three/rapier'
 import { RapierRaycastVehicle, WheelOptions } from '../lib/rapier-raycast-vehicle'
 import { Object3D } from 'three'
@@ -101,7 +101,10 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
     const topRightWheelObject = useRef<Group>(null!)
     const bottomLeftWheelObject = useRef<Group>(null!)
     const bottomRightWheelObject = useRef<Group>(null!)
-    const debugPerf = useRef<Boolean>(false)
+    
+    const { headlightsSpotLightHelper } = useLeva(`${LEVA_KEY}-headlights`, {
+        headlightsSpotLightHelper: false,
+    })
 
     const {
         indexRightAxis,
@@ -241,6 +244,35 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
             <RigidBody {...groupProps}  colliders="trimesh" mass={150} ref={chassisRigidBodyRef}>
             {/* <CuboidCollider position={[-0.23, 0, 0]} args={[2.8, 0.7, 1]} /> */}
             
+            {/* Headlights */}
+            {[
+                    {
+                        position: [2.4, -0.2, -0.7] as Vector3Tuple,
+                        target: leftHeadlightTarget,
+                    },
+                    {
+                        position: [2.4, -0.2, 0.7] as Vector3Tuple,
+                        target: rightHeadlightTarget,
+                    },
+                ].map(({ position, target }, idx) => (
+                    <Fragment key={idx}>
+                        <primitive object={target} />
+                        <spotLight
+                            position={position}
+                            target={target}
+                            angle={1.5}
+                            decay={1}
+                            distance={20}
+                            castShadow
+                            penumbra={1}
+                            intensity={40}
+                        >
+                            {headlightsSpotLightHelper && <Helper type={SpotLightHelper} />}
+                        </spotLight>
+                    </Fragment>
+                ))}
+
+                {/* Chassis */}
                 <group position={[-0.2, -0.9, 0]} rotation-y={Math.PI / 2} dispose={null}>
                     {/* <mesh castShadow receiveShadow geometry={nodes.tires.geometry} material={materials['rubber.002']} /> */}
                     <mesh castShadow receiveShadow geometry={nodes.steer.geometry} material={nodes.steer.material} />
