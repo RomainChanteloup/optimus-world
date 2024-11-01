@@ -1,4 +1,4 @@
-import { Environment, OrbitControls, Stars } from '@react-three/drei'
+import { Environment, MeshReflectorMaterial, OrbitControls, Reflector, Stars } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CuboidCollider, CylinderCollider, Physics, RigidBody, useBeforePhysicsStep } from '@react-three/rapier'
 import { useControls as useLeva } from 'leva'
@@ -13,7 +13,7 @@ import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
 import { Cybertruck } from './components/cybertruck'
 import { Perf } from 'r3f-perf'
-import { SceneWithScreen } from './components/utils/CurvedPlane'
+import { Screen } from './components/utils/Screen'
 
 
 const Text = styled.div`
@@ -211,7 +211,11 @@ const Game =
                 </RigidBody>
             ))}
 
-            <SceneWithScreen />
+            {/* screens */}
+            <group rotation={[0 ,-Math.PI + Math.PI / 4, 0]} position={[20, 4.5, 20]}>
+                <Screen />
+            </group>
+            
 
             {/* ground */}
             <RigidBody type="fixed" position-z={75} position-y={-5} colliders={false} friction={1}>
