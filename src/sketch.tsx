@@ -127,7 +127,9 @@ const Game =
     })
 
     useFrame((_, delta) => {
-        if (cameraMode !== 'drive') return
+        if (cameraMode !== 'drive') {
+                return
+        } 
 
         const chassis = raycastVehicle.current?.chassisRigidBody
         if (!chassis?.current) return
@@ -261,7 +263,9 @@ export function Sketch() {
                     updatePriority={RAPIER_UPDATE_PRIORITY}
                     // todo: support fixed timestepping
                     // right now if timeStep is not "vary", the wheel positions will be incorrect and will visually jitter
-                    timeStep="vary"
+                    // timeStep={
+                    //     1/120 // "vary" //   1/60 // "vary"
+                    // }
                     paused={!visible || loading}
                     debug={debug}
                 >
