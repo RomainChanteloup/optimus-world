@@ -1,13 +1,13 @@
-import { Environment, MeshReflectorMaterial, OrbitControls, Reflector, Stars } from '@react-three/drei'
+import { Environment, OrbitControls, Sky, Stars } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CuboidCollider, CylinderCollider, Physics, RigidBody, useBeforePhysicsStep } from '@react-three/rapier'
 import { useControls as useLeva } from 'leva'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 import { Quaternion, Vector3 } from 'three'
 import { Canvas, Instructions, useLoadingAssets, usePageVisible } from './common'
 import { LampPost } from './components/lamp-post'
-import { Vehicle, VehicleRef } from './components/vehicle'
+import { VehicleRef } from './components/vehicle'
 import { AFTER_RAPIER_UPDATE, LEVA_KEY, RAPIER_UPDATE_PRIORITY } from './constants/speed-text-tunnel'
 import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
@@ -49,7 +49,7 @@ const Game =
 
     const { cameraMode } = useLeva(`${LEVA_KEY}-camera`, {
         cameraMode: {
-            value: 'drive',
+            value: 'orbit',
             options: ['drive', 'orbit'],
         },
     })
@@ -214,9 +214,9 @@ const Game =
             ))}
 
             {/* screens */}
-            <group rotation={[0 ,-Math.PI + Math.PI / 4, 0]} position={[20, 4.5, 20]}>
+            {/* <group rotation={[0 ,-Math.PI + Math.PI / 4, 0]} position={[20, 4.5, 20]}>
                 <Screen />
-            </group>
+            </group> */}
             
 
             {/* ground */}
@@ -233,11 +233,30 @@ const Game =
                 <meshStandardMaterial color="#222" depthWrite={false} />
             </mesh>
 
-            <hemisphereLight intensity={0.75} />
-            <ambientLight intensity={0.3} />
-            <Environment preset="night" />
 
-            <Stars />
+
+            {/** LUMIERRE ET CIEL*/}
+            {/* <hemisphereLight intensity={0.75} /> */}
+            {/* <ambientLight intensity={2} /> */}
+            <Environment files='sunset-4k.hdr'
+            background={true} backgroundIntensity={0.2} 
+            environmentIntensity={0.2} 
+            />
+            {/* <Sky
+                distance={450000} // Distance de rendu
+                inclination={0.495} // Inclinaison pour simuler un soleil bas
+                rayleigh={2} // Effet de diffusion atmosphérique
+                mieDirectionalG={0.6} // Donne un effet plus large au soleil
+                azimuth={-0.2}
+            /> */}
+            {/* <pointLight position={[10, 10, 100]} intensity={100} decay={0.15} 
+            distance={100} 
+            castShadow color="#ED9121"/> */}
+
+            <directionalLight  color="#e8b6bb" intensity={5} 
+            position={[10,10,20]}/>
+
+            {/* <Stars /> */}
 
             {cameraMode === 'orbit' && <OrbitControls />}
         </>

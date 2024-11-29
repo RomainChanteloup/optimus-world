@@ -51,4 +51,13 @@ export default tseslint.config({
 
 credit to git repo
 https://github.com/isaac-mason/sketches
+
+credit to websites
+https://market.pmnd.rs/
+
+credit to 3d artists
+https://market.pmnd.rs/
+
+HDRI
+https://polyhaven.com/a/kiara_1_dawn
 ```

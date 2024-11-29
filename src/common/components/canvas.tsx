@@ -5,7 +5,7 @@ import { Controls } from './controls'
 import { Spinner } from './spinner'
 
 export const Canvas = ({ children, ...rest }: Parameters<typeof R3FCanvas>[0]) => (
-    <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<Spinner />} >
         <R3FCanvas id="gl" {...rest}>
             {children}
 

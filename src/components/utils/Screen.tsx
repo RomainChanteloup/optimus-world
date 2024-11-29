@@ -28,9 +28,9 @@ const VideoMaterial = ({ src }: VideoMaterialProps) => {
   const texture = useVideoTexture(src);
   return (
     <meshStandardMaterial 
-     emissive={new THREE.Color(0xFFFFFF)}
-     emissiveMap={texture}
-     emissiveIntensity={0.5}
+    //  emissive={new THREE.Color(0xFFFFFF)}
+    //  emissiveMap={texture}
+    //  emissiveIntensity={0.5}
      side={THREE.FrontSide} 
      map={texture} toneMapped={false} />
   );

@@ -274,6 +274,7 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
 
                 {/* Chassis */}
                 <group position={[-0.2, -0.9, 0]} rotation-y={Math.PI / 2} dispose={null}>
+                    {/* OLD WHEELS */}
                     {/* <mesh castShadow receiveShadow geometry={nodes.tires.geometry} material={materials['rubber.002']} /> */}
                     <mesh castShadow receiveShadow geometry={nodes.steer.geometry} material={nodes.steer.material} />
                     <mesh castShadow receiveShadow geometry={nodes.interior003.geometry} material={nodes.interior003.material} />
