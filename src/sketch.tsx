@@ -1,6 +1,6 @@
-import { Environment, OrbitControls, Sky, Stars } from '@react-three/drei'
+import { Cylinder, Environment, OrbitControls, Sky, Stars } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-import { CuboidCollider, CylinderCollider, Physics, RigidBody, useBeforePhysicsStep } from '@react-three/rapier'
+import { CuboidCollider, CylinderCollider, Physics, RigidBody, RoundCuboidCollider, useBeforePhysicsStep } from '@react-three/rapier'
 import { useControls as useLeva } from 'leva'
 import { useRef } from 'react'
 import styled from 'styled-components'
@@ -14,6 +14,7 @@ import { SpeedTextTunnel } from './constants/speed-text-tunnel'
 import { Cybertruck } from './components/cybertruck'
 import { Perf } from 'r3f-perf'
 import { Screen } from './components/utils/Screen'
+import { Rocks } from './components/utils/Rocks'
 
 
 const Text = styled.div`
@@ -203,6 +204,21 @@ const Game =
                 ))}
             </group>
 
+
+            <RigidBody colliders="hull" type="fixed">
+                <Rocks receiveShadow castShadow position={[20, 0, 40]} />
+            </RigidBody>
+            <RigidBody colliders="hull" type="fixed">
+                <Rocks receiveShadow castShadow position={[50, 0, 40]} />
+            </RigidBody>
+            <RigidBody colliders="hull" type="fixed">
+                <Rocks receiveShadow castShadow position={[90, 0, 40]} />
+            </RigidBody>
+            <RigidBody colliders="hull" type="fixed">
+                <Rocks receiveShadow castShadow position={[100, 0, 40]} />
+            </RigidBody>
+            
+
             {/* boxes */}
             {Array.from({ length: 6 }).map((_, idx) => (
                 <RigidBody key={idx} colliders="cuboid" mass={0.2}>
@@ -220,18 +236,26 @@ const Game =
             
 
             {/* ground */}
-            <RigidBody type="fixed" position-z={75} position-y={-5} colliders={false} friction={1}>
-                <CuboidCollider args={[120, 5, 120]} />
-                <mesh receiveShadow>
-                    <boxGeometry args={[240, 10, 240]} />
-                    <meshStandardMaterial color="#303030" />
-                </mesh>
-            </RigidBody>
+                {/* <RigidBody type="fixed" position-z={75} position-y={-5} colliders={false} friction={1}>
+                    <CuboidCollider args={[120, 5, 120]} />
+                    <mesh receiveShadow>
+                        <boxGeometry args={[240, 10, 240]} />
+                        <meshStandardMaterial color="#303030" />
+                    </mesh>
+                </RigidBody> */}
+                <RigidBody type="fixed" position-y={-0.25} colliders={false} friction={1}>
+                    <CylinderCollider args={[0.25, 200]} /> 
+                    <Cylinder args={[200, 200, 0.5, 20]} receiveShadow castShadow>
+                        <meshStandardMaterial color="#303030" />
+                    </Cylinder>
+                </RigidBody>
 
-            <mesh position={[0, 0.02, 50]} rotation-x={-Math.PI / 2} receiveShadow>
-                <planeGeometry args={[15, 150]} />
-                <meshStandardMaterial color="#222" depthWrite={false} />
-            </mesh>
+
+            {/* ROAD*/}
+                <mesh position={[0, 0.02, 50]} rotation-x={-Math.PI / 2} receiveShadow>
+                    <planeGeometry args={[15, 150]} />
+                    <meshStandardMaterial color="#222" depthWrite={false} />
+                </mesh>
 
 
 
