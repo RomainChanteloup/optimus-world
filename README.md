@@ -60,4 +60,7 @@ https://market.pmnd.rs/
 
 HDRI
 https://polyhaven.com/a/kiara_1_dawn
+
+Inspiration :
+ https://github.com/nhtoby311/WaterSurface?tab=readme-ov-file
 ```

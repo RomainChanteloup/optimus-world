@@ -4,7 +4,7 @@ import { CuboidCollider, CylinderCollider, Physics, RigidBody, RoundCuboidCollid
 import { useControls as useLeva } from 'leva'
 import { useRef } from 'react'
 import styled from 'styled-components'
-import { Quaternion, Vector3 } from 'three'
+import { CircleGeometry, Quaternion, Vector3 } from 'three'
 import { Canvas, Instructions, useLoadingAssets, usePageVisible } from './common'
 import { LampPost } from './components/lamp-post'
 import { VehicleRef } from './components/vehicle'
@@ -15,6 +15,7 @@ import { Cybertruck } from './components/cybertruck'
 import { Perf } from 'r3f-perf'
 import { Screen } from './components/utils/Screen'
 import { Rocks } from './components/utils/Rocks'
+import WaterSurfaceSimple from './components/utils/WaterSurface/WaterSurfaceSimple'
 
 
 const Text = styled.div`
@@ -256,6 +257,11 @@ const Game =
                     <planeGeometry args={[15, 150]} />
                     <meshStandardMaterial color="#222" depthWrite={false} />
                 </mesh>
+
+
+            {/* WATER*/}
+            <WaterSurfaceSimple geom={new CircleGeometry(10, 32)} width={20} length={20} position={[20, 0.1, 35]}>
+            </WaterSurfaceSimple>
 
 
 
