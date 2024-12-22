@@ -163,12 +163,13 @@ export function Island(props: any) {
             geometry={nodes.Object_10.geometry}
             material={materials.Material_179_6}
           />
-          <mesh
+          {/* chutte grande cascase d'eau */}
+          {/* <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_11.geometry}
             material={materials.Material_179_7}
-          />
+          /> */}
           <mesh
             castShadow
             receiveShadow
@@ -181,12 +182,13 @@ export function Island(props: any) {
             geometry={nodes.Object_13.geometry}
             material={materials.Material_179_9}
           />
-          <mesh
+          {/* Vagues plages */}
+          {/* <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_14.geometry}
             material={materials.Material_179_10}
-          />
+          /> */}
           {/* petits reflets d'eaux */}
           {/* <mesh
             castShadow
@@ -357,12 +359,13 @@ export function Island(props: any) {
             geometry={nodes.Object_42.geometry}
             material={materials.Material_179_37}
           />
-          <mesh
+          {/* grande cascase d'eau */}
+          {/* <mesh
             castShadow
             receiveShadow
             geometry={nodes.Object_43.geometry}
             material={materials.Material_179_38}
-          />
+          /> */}
           <mesh
             castShadow
             receiveShadow
