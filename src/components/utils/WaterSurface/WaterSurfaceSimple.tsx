@@ -26,7 +26,7 @@ export default function WaterSurfaceSimple({
 	dimensions = 1024,
 	waterColor = 0x000000,
 	position = [0, 0, 0],
-	distortionScale = 0.7,
+	distortionScale = 3,
 	fxDistortionFactor = 0.2,
 	fxDisplayColorAlpha = 0.0,
 	fxMixColor = 0x000000,

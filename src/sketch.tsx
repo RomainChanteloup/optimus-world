@@ -175,12 +175,8 @@ const Game =
             rotation={[0, (- Math.PI / 2) - Math.PI / 2, 0]} 
             />
 
-            {/* lamp posts */}
-            <LampPost position={[10, 0, 0]} />
-            <LampPost position={[-10, 0, 25]} rotation-y={Math.PI} />
-            <LampPost position={[10, 0, 50]} />
-            <LampPost position={[-10, 0, 75]} rotation-y={Math.PI} />
-            <LampPost position={[10, 0, 100]} />
+
+            <LampPost position={[-115, 3, 340]} rotation={[0, Math.PI / 2, 0]} />
 
             {/* ramp */}
             <RigidBody type="fixed">
@@ -223,12 +219,12 @@ const Game =
             <RigidBody colliders="hull" type="fixed">
                 <Rocks receiveShadow castShadow position={[100, 0, 40]} />
             </RigidBody>
-            
+
 
             {/* boxes */}
             {Array.from({ length: 6 }).map((_, idx) => (
                 <RigidBody key={idx} colliders="cuboid" mass={0.2}>
-                    <mesh position={[0, 2 + idx * 2.5, 70]}>
+                    <mesh position={[-100, 2 + idx * 2.5, 342]}>
                         <boxGeometry args={[2, 1, 2]} />
                         <meshStandardMaterial color="orange" />
                     </mesh>
@@ -249,12 +245,14 @@ const Game =
                         <meshStandardMaterial color="#303030" />
                     </mesh>
                 </RigidBody> */}
-                <RigidBody type="fixed" position-y={-0.25} colliders={false} friction={1}>
-                    <CylinderCollider args={[0.25, 200]} /> 
-                    <Cylinder args={[200, 200, 0.5, 20]} receiveShadow castShadow>
-                        {/* <meshStandardMaterial color="#303030" /> */}
-                    </Cylinder>
-                </RigidBody>
+                {/*}
+                    <RigidBody type="fixed" position-y={-0.25} colliders={false} friction={1}>
+                        <CylinderCollider args={[0.25, 200]} /> 
+                        <Cylinder args={[200, 200, 0.5, 20]} receiveShadow castShadow>
+                             <meshStandardMaterial color="#303030" />
+                        </Cylinder>
+                    </RigidBody>
+                 */}
                 
             {/* Island */}
             <RigidBody type="fixed" colliders={'trimesh'}>
@@ -270,14 +268,19 @@ const Game =
 
 
             {/* WATER*/}
-            <WaterSurfaceSimple geom={new CircleGeometry(10, 32)} width={20} length={20} position={[20, 0.1, 35]}>
+            {/* <WaterSurfaceSimple geom={new CircleGeometry(10, 32)} width={20} length={20} position={[20, 0.1, 35]}>
+            </WaterSurfaceSimple> */}
+            <WaterSurfaceSimple 
+            geom={new CircleGeometry(4000, 32)}
+             width={20} length={20}
+              position={[0, 0.2, 0]}>
             </WaterSurfaceSimple>
 
 
 
             {/** LUMIERRE ET CIEL*/}
-            {/* <hemisphereLight intensity={0.75} /> */}
-            {/* <ambientLight intensity={2} /> */}
+            {/* <hemisphereLight intensity={0.75} />
+            <ambientLight intensity={0.5} /> */}
             <Environment files='sunset-4k.hdr'
             background={true} backgroundIntensity={0.2} 
             environmentIntensity={0.2} 
