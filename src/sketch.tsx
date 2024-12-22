@@ -16,6 +16,7 @@ import { Perf } from 'r3f-perf'
 import { Screen } from './components/utils/Screen'
 import { Rocks } from './components/utils/Rocks'
 import WaterSurfaceSimple from './components/utils/WaterSurface/WaterSurfaceSimple'
+import { Island } from './components/island'
 
 
 const Text = styled.div`
@@ -51,7 +52,7 @@ const Game =
 
     const { cameraMode } = useLeva(`${LEVA_KEY}-camera`, {
         cameraMode: {
-            value: 'orbit',
+            value: 'drive',
             options: ['drive', 'orbit'],
         },
     })
@@ -168,7 +169,11 @@ const Game =
             {/* raycast vehicle */}
             {/* <Vehicle  position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} /> */}
 
-            <Cybertruck ref={raycastVehicle} position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} />
+            <Cybertruck 
+            ref={raycastVehicle} 
+            position={[-85, 5, 342]} 
+            rotation={[0, (- Math.PI / 2) - Math.PI / 2, 0]} 
+            />
 
             {/* lamp posts */}
             <LampPost position={[10, 0, 0]} />
@@ -205,7 +210,7 @@ const Game =
                 ))}
             </group>
 
-
+            {/* Rocks */}
             <RigidBody colliders="hull" type="fixed">
                 <Rocks receiveShadow castShadow position={[20, 0, 40]} />
             </RigidBody>
@@ -247,16 +252,21 @@ const Game =
                 <RigidBody type="fixed" position-y={-0.25} colliders={false} friction={1}>
                     <CylinderCollider args={[0.25, 200]} /> 
                     <Cylinder args={[200, 200, 0.5, 20]} receiveShadow castShadow>
-                        <meshStandardMaterial color="#303030" />
+                        {/* <meshStandardMaterial color="#303030" /> */}
                     </Cylinder>
                 </RigidBody>
+                
+            {/* Island */}
+            <RigidBody type="fixed" colliders={'trimesh'}>
+                <Island visible={true}/>
+            </RigidBody>
 
 
             {/* ROAD*/}
-                <mesh position={[0, 0.02, 50]} rotation-x={-Math.PI / 2} receiveShadow>
+                {/* <mesh position={[0, 0.02, 50]} rotation-x={-Math.PI / 2} receiveShadow>
                     <planeGeometry args={[15, 150]} />
                     <meshStandardMaterial color="#222" depthWrite={false} />
-                </mesh>
+                </mesh> */}
 
 
             {/* WATER*/}
