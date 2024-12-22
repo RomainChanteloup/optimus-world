@@ -241,9 +241,12 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
     return (
 
         <>
-            <RigidBody {...groupProps}  colliders="trimesh" mass={150} ref={chassisRigidBodyRef}>
-            {/* <CuboidCollider position={[-0.23, 0, 0]} args={[2.8, 0.7, 1]} /> */}
-            
+            <RigidBody {...groupProps}  
+            colliders={false}
+            mass={150} 
+            ref={chassisRigidBodyRef}>
+            <CuboidCollider position={[-0.23, 0, 0]} args={[2.8, 0.7, 1]} />
+
             {/* Headlights */}
             {[
                     {

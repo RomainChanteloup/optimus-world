@@ -17,6 +17,7 @@ import { Screen } from './components/utils/Screen'
 import { Rocks } from './components/utils/Rocks'
 import WaterSurfaceSimple from './components/utils/WaterSurface/WaterSurfaceSimple'
 import { Island } from './components/island'
+import { EffectComposer,DepthOfField, Bloom, FXAA } from '@react-three/postprocessing';
 
 
 const Text = styled.div`
@@ -169,7 +170,7 @@ const Game =
             {/* raycast vehicle */}
             {/* <Vehicle  position={[0, 5, 0]} rotation={[0, -Math.PI / 2, 0]} /> */}
 
-            <Cybertruck 
+            <Cybertruck
             ref={raycastVehicle} 
             position={[-85, 5, 342]} 
             rotation={[0, (- Math.PI / 2) - Math.PI / 2, 0]} 
@@ -271,6 +272,7 @@ const Game =
             {/* <WaterSurfaceSimple geom={new CircleGeometry(10, 32)} width={20} length={20} position={[20, 0.1, 35]}>
             </WaterSurfaceSimple> */}
             <WaterSurfaceSimple 
+            waterColor={0x8174A0}
             geom={new CircleGeometry(4000, 32)}
              width={20} length={20}
               position={[0, 0.2, 0]}>
@@ -301,7 +303,7 @@ const Game =
 
             {/* <Stars /> */}
 
-            {cameraMode === 'orbit' && <OrbitControls />}
+            {cameraMode === 'orbit' && <OrbitControls/>}
         </>
     )
 }
@@ -316,24 +318,34 @@ export function Sketch() {
 
     return (
         <> 
-            <Canvas camera={{ fov: 60, position: [0, 30, -20] }} shadows>
-                {debug && <Perf position='top-left'/>}
-                <color attach="background" args={['#111']} />
+            <Canvas 
+            camera={{ fov: 60, position: [0, 30, -20], far: 4000 }}
+            shadows
+            gl={{ antialias: true }}
+            >
+                <EffectComposer>
 
-                <Physics
-                    gravity={[0, -9.81, 0]}
-                    updatePriority={RAPIER_UPDATE_PRIORITY}
-                    // todo: support fixed timestepping
-                    // right now if timeStep is not "vary", the wheel positions will be incorrect and will visually jitter
-                    // timeStep={
-                    //     1/120 // "vary" //   1/60 // "vary"
-                    // }
-                    paused={!visible || loading}
-                    debug={debug}
-                >
-                    <Game 
-                    />
-                </Physics>
+                <DepthOfField focusDistance={0} focalLength={0.5} bokehScale={2} height={480} />
+                    
+                    {debug && <Perf position='top-left'/>}
+
+                    <color attach="background" args={['#111']} />
+                    <Physics
+                        gravity={[0, -9.81, 0]}
+                        updatePriority={RAPIER_UPDATE_PRIORITY}
+                        // todo: support fixed timestepping
+                        // right now if timeStep is not "vary", the wheel positions will be incorrect and will visually jitter
+                        // timeStep={
+                        //     1/120 // "vary" //   1/60 // "vary"
+                        // }
+                        paused={!visible || loading}
+                        debug={debug}
+                    >
+                        <Game 
+                        />
+                    </Physics>
+                
+                </EffectComposer>
             </Canvas>
             <SpeedTextTunnel.Out />
             <Instructions>use wasd to drive, space to break</Instructions>
