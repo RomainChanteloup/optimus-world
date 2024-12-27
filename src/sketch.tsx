@@ -172,7 +172,7 @@ const Game =
 
             <Cybertruck
             ref={raycastVehicle} 
-            position={[-85, 5, 342]} 
+            position={[-45, 2.8, 172]} 
             rotation={[0, (- Math.PI / 2) - Math.PI / 2, 0]} 
             />
 

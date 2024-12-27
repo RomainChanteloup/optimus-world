@@ -113,7 +113,7 @@ export function Island(props: any) {
   
   return (
     <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.01}>
+      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.005}>
         <group position={[-1139526.375, -1139353.5, -2169.607]}>
           <mesh
             castShadow
