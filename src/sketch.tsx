@@ -18,7 +18,7 @@ import { Rocks } from './components/utils/Rocks'
 import WaterSurfaceSimple from './components/utils/WaterSurface/WaterSurfaceSimple'
 import { Island } from './components/island'
 import { EffectComposer,DepthOfField, Bloom, FXAA } from '@react-three/postprocessing';
-
+import Links from './common/components/interface/links'
 
 const Text = styled.div`
     text-align: center;
@@ -349,6 +349,7 @@ export function Sketch() {
             </Canvas>
             <SpeedTextTunnel.Out />
             <Instructions>use wasd to drive, space to break</Instructions>
+            <Links></Links>
         </>
     )
 }
