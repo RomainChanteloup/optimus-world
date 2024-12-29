@@ -172,7 +172,7 @@ const Game =
 
             <Cybertruck
             ref={raycastVehicle} 
-            position={[-45, 2.8, 172]} 
+            position={[-45, 3, 172]} 
             rotation={[0, (- Math.PI / 2) - Math.PI / 2, 0]} 
             />
 
@@ -348,7 +348,7 @@ export function Sketch() {
                 </EffectComposer>
             </Canvas>
             <SpeedTextTunnel.Out />
-            <Instructions>use wasd to drive, space to break</Instructions>
+            <Instructions>Enjoy the ride !</Instructions>
             <Links></Links>
         </>
     )
