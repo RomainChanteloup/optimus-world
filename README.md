@@ -16,6 +16,14 @@ npm start
 ```
 This project also i'v been done with project idx of google so you can just import it and run it from there.
 
+### With docker
+```cmd
+docker build --tag 'optimus-world' .
+```
+```cmd
+docker run -p 3000:3000 optimus-world
+```
+
 ## To Do List 
 
 - Vehicule Physic

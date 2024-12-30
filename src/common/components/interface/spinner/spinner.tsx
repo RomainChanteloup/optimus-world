@@ -1,34 +1,28 @@
 import { CgSpinner } from "react-icons/cg";
-import './spinner.css';
-
+import "./spinner.css";
 
 type SpinnerProps = {
-    isLoading: boolean;
-    onStartClickedChange: (value: boolean) => void;
+  isLoading: boolean;
+  onStartClickedChange: (value: boolean) => void;
 };
 
 export const Spinner: React.FC<SpinnerProps> = (spinnerProps: SpinnerProps) => {
+  const handleStartClick = () => {
+    // we send event that start button has been clicked
+    spinnerProps.onStartClickedChange(true);
+  };
 
-    const handleStartClick = () => {
-        // we send event that start button has been clicked
-        spinnerProps.onStartClickedChange(true);  
-      };
-
-    return (
-        <div className="spinner-container">
-                {
-                    spinnerProps.isLoading
-                    &&
-                    <div className="spinner-content">
-                        <span>Loading of the Optimus World Experience</span>
-                        <CgSpinner className="rotating spinner" />
-                    </div>
-                }
-                {
-                    !spinnerProps.isLoading
-                    &&
-                    <button onClick={handleStartClick} >Start The experience 🚀</button>
-                }
+  return (
+    <div className="spinner-container">
+      {spinnerProps.isLoading && (
+        <div className="spinner-content">
+          <span>Loading of the Optimus World Experience</span>
+          <CgSpinner className="rotating spinner" />
         </div>
-    )
-}
+      )}
+      {!spinnerProps.isLoading && (
+        <button onClick={handleStartClick}>Start The experience 15🚀</button>
+      )}
+    </div>
+  );
+};
