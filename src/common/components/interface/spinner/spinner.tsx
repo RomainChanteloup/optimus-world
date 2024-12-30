@@ -21,7 +21,7 @@ export const Spinner: React.FC<SpinnerProps> = (spinnerProps: SpinnerProps) => {
         </div>
       )}
       {!spinnerProps.isLoading && (
-        <button onClick={handleStartClick}>Start The experience 15🚀</button>
+        <button onClick={handleStartClick}>Start The experience 🚀</button>
       )}
     </div>
   );
