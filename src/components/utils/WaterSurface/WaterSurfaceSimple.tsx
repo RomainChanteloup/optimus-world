@@ -3,8 +3,9 @@ import { BufferGeometry, PlaneGeometry, RepeatWrapping, Vector2 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import { WaterSimple } from './Water/WaterSimple';
-
 import { WaterContext } from './WaterContext';
+import simplewaternormals from '/water/simple/waternormals.jpeg?url';
+
 
 type Props = {
 	width?: number;
@@ -40,7 +41,7 @@ export default function WaterSurfaceSimple({
 	const refPointer = useRef(new Vector2(0, 0));
 
 	const gl = useThree((state) => state.gl);
-	const waterNormals = useTexture('/water/simple/waternormals.jpeg');
+	const waterNormals = useTexture(simplewaternormals);
 	waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping;
 	const config = useMemo(
 		() => ({
