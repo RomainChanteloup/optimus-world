@@ -1,10 +1,13 @@
 # Optimus World
 
 ## Description
-Here is a 3D Experience done with React, Three JS, react-three-fiber and Drei. This portofilio is a fun one inspired by Bruno Simon the famous one portfolio https://bruno-simon.com/
+Here is a 3D Experience done with React, Three JS, react-three-fiber and Drei. This project is an experiment and is still a work in progress. 
+It’s just a small, fun side project I’m using to improve my skills.
+
+This portofilio is a fun one inspired by Bruno Simon the famous one portfolio https://bruno-simon.com/
 
 ## ⚠ Warning ⚠
-I'm not a 3d artist. I'v taken all the 3d from differents sources. They are all in the credit section. Thx to them, unless this project would be impossible. Also huge credit for Isaac Mason repository for the car physics.
+I am not a 3D artist; all the 3D assets in this project were sourced from various creators and are credited in the credits section. Huge thanks to them, as this project would not have been possible without their contributions. Special credit also goes to Isaac Mason for his repository on car physics.
 
 ## How to run this project
 This project is a react project so simply run this 2 commands and you are ready to go
@@ -12,7 +15,7 @@ This project is a react project so simply run this 2 commands and you are ready 
 npm install
 ```
 ```cmd
-npm start
+npm run dev
 ```
 This project also i'v been done with project idx of google so you can just import it and run it from there.
 
@@ -55,7 +58,7 @@ docker run -p 3000:3000 optimus-world
 
 ## Credits
 
-Car Physic :
+Car Physic from Isaac Mason :
 https://github.com/isaac-mason/sketches
 
 credit to websites :
@@ -69,3 +72,6 @@ https://polyhaven.com/a/kiara_1_dawn
 
 Water :
  https://github.com/nhtoby311/WaterSurface?tab=readme-ov-file
+
+Wuhu Island - Wii Sports Resort by Nelib on Sketchfab :
+https://skfb.ly/oqWKy
