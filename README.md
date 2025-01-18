@@ -2,7 +2,31 @@
 
 [![Watch the video](https://img.youtube.com/vi/k9LABgVLcpo/maxresdefault.jpg)](https://youtu.be/k9LABgVLcpo)
 
-### [Watch this video on YouTube](https://youtu.be/k9LABgVLcpo)
+<p align="center">
+  <a href="https://romainchanteloup.github.io/optimus-world/" target="_blank" style="font-size: 24px; 
+     padding: 15px 30px; 
+     background-color: #333; 
+     color: white; 
+     border-radius: 5px; 
+     text-decoration: none; 
+     font-weight: bold; 
+     transition: background-color 0.3s;">
+    Visit the Optimus World 🚀
+  </a>
+</p>
+<br>
+<p align="center">
+  <a href="https://youtu.be/k9LABgVLcpo" target="_blank" style="font-size: 15px; 
+     padding: 10px 15px; 
+     background-color: #333; 
+     color: white; 
+     border-radius: 5px; 
+     text-decoration: none; 
+     font-weight: bold; 
+     transition: background-color 0.3s;">
+    Whatch the video on youtube
+  </a>
+</p>
 
 ## Description
 Here is a 3D Experience done with React, Three JS, react-three-fiber and Drei. This project is an experiment and is still a work in progress. 
