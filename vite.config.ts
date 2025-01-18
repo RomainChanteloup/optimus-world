@@ -1,12 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 3000, 
-    host: true  // Add this line to listen on all interfaces
-  },
-})
+export default defineConfig(({ command }) => {
+  const config = {
+    plugins: [react()],
+    server: {
+      port: 3000,
+      host: true
+    },
+    base: command === 'build' ? '/optimus-world/' : '/'
+  }
 
+  return config
+})
