@@ -7,8 +7,8 @@ import { GLTF } from 'three-stdlib'
 import { LEVA_KEY } from '../constants/speed-text-tunnel'
 import { RapierRaycastVehicle, WheelOptions } from '../lib/rapier-raycast-vehicle'
 
-import chassisDracoUrl from '../assets/chassis-draco.glb?url'
-import wheelGlbUrl from '../assets/wheel-draco.glb?url'
+import chassisDracoUrl from '/chassis-draco.glb?url'
+import wheelGlbUrl from '/wheel-draco.glb?url'
 
 type WheelGLTF = GLTF & {
     nodes: {

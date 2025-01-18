@@ -5,7 +5,7 @@ License: SKETCHFAB Standard (https://sketchfab.com/licenses)
 Source: https://sketchfab.com/3d-models/wuhu-island-wii-sports-resort-68d83db076c944fdb5e1273f95b4fc7d
 Title: Wuhu Island - Wii Sports Resort
 */
-
+import islandurl from '/island.glb?url'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three';
 
@@ -402,4 +402,4 @@ export function Island(props: any) {
   )
 }
 
-useGLTF.preload('/wuhu_island_-_wii_sports_resort.glb')
+useGLTF.preload(islandurl)

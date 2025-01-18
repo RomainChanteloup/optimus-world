@@ -6,7 +6,7 @@ https://market.pmnd.rs/model/cybertruck
         
 import * as THREE from 'three'
 import { Helper, useGLTF, } from '@react-three/drei'
-import cybertruckGLTF from '../assets/cybertruck.gltf?url'
+import cybertruckGLTF from '/cybertruck.gltf?url'
 import { GLTF } from 'three-stdlib'
 import { useControls as useLeva } from 'leva'
 import { MeshStandardMaterial, Group, Mesh, Vector3, Vector3Tuple, SpotLightHelper } from 'three'
@@ -15,7 +15,7 @@ import { CuboidCollider, RapierRigidBody, RigidBody, RigidBodyProps, useRapier }
 import { RapierRaycastVehicle, WheelOptions } from '../lib/rapier-raycast-vehicle'
 import { Object3D } from 'three'
 import { LEVA_KEY } from '../constants/speed-text-tunnel'
-import wheelGlbUrl from '../assets/wheel-draco.glb?url'
+import wheelGlbUrl from '/wheel-draco.glb?url'
 
 type WheelGLTF = GLTF & {
     nodes: {

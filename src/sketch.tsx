@@ -13,7 +13,6 @@ import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
 import { Cybertruck } from './components/cybertruck'
 import { Perf } from 'r3f-perf'
-import { Rocks } from './components/utils/Rocks'
 import WaterSurfaceSimple from './components/utils/WaterSurface/WaterSurfaceSimple'
 import { Island } from './components/island'
 import { EffectComposer,DepthOfField } from '@react-three/postprocessing';
@@ -207,7 +206,7 @@ const Game =
             </group>
 
             {/* Rocks */}
-            <RigidBody colliders="hull" type="fixed">
+            {/* <RigidBody colliders="hull" type="fixed">
                 <Rocks receiveShadow castShadow position={[20, 0, 40]} />
             </RigidBody>
             <RigidBody colliders="hull" type="fixed">
@@ -218,7 +217,7 @@ const Game =
             </RigidBody>
             <RigidBody colliders="hull" type="fixed">
                 <Rocks receiveShadow castShadow position={[100, 0, 40]} />
-            </RigidBody>
+            </RigidBody> */}
 
 
             {/* boxes */}
