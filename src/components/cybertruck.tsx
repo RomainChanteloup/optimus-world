@@ -95,7 +95,7 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
 
     const vehicleRef = useRef<RapierRaycastVehicle>(null!)
     const chassisRigidBodyRef = useRef<RapierRigidBody>(null!)
-    const brakeLightsRef = useRef<Mesh>(null!)
+    // const brakeLightsRef = useRef<Mesh>(null!)
 
     const topLeftWheelObject = useRef<Group>(null!)
     const topRightWheelObject = useRef<Group>(null!)
@@ -195,7 +195,7 @@ export const Cybertruck = forwardRef<VehicleRef, VehicleProps>(({ children, ...g
     useImperativeHandle(ref, () => ({
         chassisRigidBody: chassisRigidBodyRef,
         rapierRaycastVehicle: vehicleRef,
-        setBraking: (braking: boolean) => {
+        setBraking: () => {
         },
         wheels,
     }))

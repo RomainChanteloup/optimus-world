@@ -1,6 +1,6 @@
-import { Cylinder, Environment, OrbitControls, Sky, Stars } from '@react-three/drei'
+import { Environment, OrbitControls } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-import { CuboidCollider, CylinderCollider, Physics, RigidBody, RoundCuboidCollider, useBeforePhysicsStep } from '@react-three/rapier'
+import { CylinderCollider, Physics, RigidBody, useBeforePhysicsStep } from '@react-three/rapier'
 import { useControls as useLeva } from 'leva'
 import { useRef } from 'react'
 import styled from 'styled-components'
@@ -13,11 +13,10 @@ import { useControls } from './hooks/use-controls'
 import { SpeedTextTunnel } from './constants/speed-text-tunnel'
 import { Cybertruck } from './components/cybertruck'
 import { Perf } from 'r3f-perf'
-import { Screen } from './components/utils/Screen'
 import { Rocks } from './components/utils/Rocks'
 import WaterSurfaceSimple from './components/utils/WaterSurface/WaterSurfaceSimple'
 import { Island } from './components/island'
-import { EffectComposer,DepthOfField, Bloom, FXAA } from '@react-three/postprocessing';
+import { EffectComposer,DepthOfField } from '@react-three/postprocessing';
 import Links from './common/components/interface/links'
 
 const Text = styled.div`
@@ -327,7 +326,7 @@ export function Sketch() {
 
                 <DepthOfField focusDistance={0} focalLength={0.5} bokehScale={2} height={480} />
                     
-                    {debug && <Perf position='top-left'/>}
+                    {debug ? <Perf position="top-left" /> : <></>}
 
                     <color attach="background" args={['#111']} />
                     <Physics

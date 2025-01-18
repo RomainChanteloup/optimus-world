@@ -1,5 +1,5 @@
 import { Leva } from 'leva'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { create } from 'zustand'
 
 type ControlsState = {

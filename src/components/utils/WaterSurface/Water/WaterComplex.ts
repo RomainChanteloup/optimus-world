@@ -5,12 +5,10 @@ import {
 	Mesh,
 	RepeatWrapping,
 	ShaderMaterial,
-	Side,
 	Texture,
 	UniformsLib,
 	UniformsUtils,
 	Vector2,
-	Vector3,
 	Vector4,
 } from 'three';
 import { Reflector, Refractor } from 'three-stdlib';

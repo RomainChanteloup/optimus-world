@@ -1,5 +1,5 @@
 import { useMemo, useRef } from 'react';
-import { BufferGeometry, PlaneGeometry, RepeatWrapping, Vector2, Vector3 } from 'three';
+import { BufferGeometry, PlaneGeometry, RepeatWrapping, Vector2 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import { WaterSimple } from './Water/WaterSimple';
@@ -67,6 +67,7 @@ export default function WaterSurfaceSimple({
 			waterNormals,
 		]
 	);
+	// @ts-ignore: don't remove state is essential here in the lib
 	useFrame((state, delta) => {
 		if (ref.current) ref.current.material.uniforms.time.value += delta / 2;
 	});

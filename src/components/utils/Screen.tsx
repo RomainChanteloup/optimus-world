@@ -1,7 +1,6 @@
 import * as THREE from 'three'
-import { ReactElement, Suspense, useMemo, useState } from 'react'
-import { Center, Plane, useAspect, useVideoTexture } from '@react-three/drei'
-import { DoubleSide, RectAreaLight } from "three";
+import {Suspense } from 'react'
+import { Plane, useAspect, useVideoTexture } from '@react-three/drei'
 import video from '../../assets/space_x_video.mp4';
 
 

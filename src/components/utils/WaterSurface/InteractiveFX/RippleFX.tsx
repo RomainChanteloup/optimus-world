@@ -7,7 +7,7 @@ import { WaterContext } from '../WaterContext';
 export type FXRippleProps = {
 	frequency?: number;
 	rotation?: number;
-	fadeout_speed?: number;
+	fadeoutSpeed?: number;
 	scale?: number;
 	alpha?: number;
 };
@@ -15,7 +15,7 @@ export type FXRippleProps = {
 export default function RippleFX({
 	frequency = 0.01,
 	rotation = 0.05,
-	fadeout_speed = 0.9,
+	fadeoutSpeed = 0.9,
 	scale = 0.2,
 	alpha = 1.0,
 }: FXRippleProps) {
@@ -32,13 +32,13 @@ export default function RippleFX({
 		texture: ripple,
 		dpr,
 	});
-	const [updateBlending, setBlending] = useBlending({ size, dpr });
+	const [updateBlending] = useBlending({ size, dpr });
 
 	setRipple({
 		//alpha: 0.9,
 		frequency,
 		rotation,
-		fadeout_speed,
+		fadeoutSpeed,
 		scale,
 		alpha,
 	});
