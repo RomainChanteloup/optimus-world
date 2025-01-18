@@ -1,6 +1,8 @@
 # Optimus World
 
-[![YouTube](http://i.ytimg.com/vi/k9LABgVLcpo/hqdefault.jpg)](https://www.youtube.com/watch?v=k9LABgVLcpo)
+[![Watch the video](https://img.youtube.com/vi/k9LABgVLcpo/maxresdefault.jpg)](https://youtu.be/k9LABgVLcpo)
+
+### [Watch this video on YouTube](https://youtu.be/k9LABgVLcpo)
 
 ## Description
 Here is a 3D Experience done with React, Three JS, react-three-fiber and Drei. This project is an experiment and is still a work in progress. 
