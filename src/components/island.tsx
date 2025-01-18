@@ -109,7 +109,7 @@ type GLTFResult = {
   };
 
 export function Island(props: any) {
-  const { nodes, materials } = useGLTF('/island.glb') as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF(islandurl) as unknown as GLTFResult;
   
   return (
     <group {...props} dispose={null}>
@@ -402,4 +402,4 @@ export function Island(props: any) {
   )
 }
 
-useGLTF.preload(islandurl)
+
